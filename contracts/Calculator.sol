@@ -2,24 +2,34 @@
 
 pragma solidity ^0.8.26;
 
-contract Calculator {
+contract BasicCalculator {
 
     uint256 public result = 0;
 
-    function add(uint256 num) public {
-        result += num;
+    function add(uint256 a, uint256 b) internal {
+        result = a + b;
     }
 
-    function subtract(uint256 num) public {
-        result -= num;
+    function subtract(uint256 a, uint256 b) internal {
+        result = a - b;
+    }
+}
+
+contract AdvancedCalculator is BasicCalculator {
+
+    function multiply(uint256 a, uint256 b) internal {
+        result = a * b;
     }
 
-    function multiply(uint256 num) public {
-        result *= num;
+    function divide(uint256 a, uint256 b) internal {
+        result = a / b;
     }
 
-    function getResult() public view returns (uint256) {
-        return result;
+    function performanceOperation(uint256 a, uint256 b, uint8 operation) public {
+        if (operation == 0) add(a, b);
+        else if (operation == 1) subtract(a, b);
+        else if (operation == 2) multiply(a, b);
+        else if (operation == 3) divide(a, b);
+        else revert("Invalid operation selected");
     }
-
 }
